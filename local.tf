@@ -56,15 +56,18 @@ locals {
     service_linked_role_arn       = ""                          # Arn of custom service linked role that Auto Scaling group will use. Useful when you have encrypted EBS
     termination_policies          = []                          # A list of policies to decide how the instances in the auto scale group should be terminated.
     # Settings for launch templates
-    root_block_device_name            = data.aws_ami.eks_worker.root_device_name # Root device name for workers. If non is provided, will assume default AMI was used.
-    root_kms_key_id                   = ""                                       # The KMS key to use when encrypting the root storage device
-    launch_template_version           = "$Latest"                                # The lastest version of the launch template to use in the autoscaling group
-    launch_template_placement_tenancy = "default"                                # The placement tenancy for instances
-    launch_template_placement_group   = ""                                       # The name of the placement group into which to launch the instances, if any.
-    root_encrypted                    = ""                                       # Whether the volume should be encrypted or not
-    eni_delete                        = true                                     # Delete the Elastic Network Interface (ENI) on termination (if set to false you will have to manually delete before destroying)
-    cpu_credits                       = "standard"                               # T2/T3 unlimited mode, can be 'standard' or 'unlimited'. Used 'standard' mode as default to avoid paying higher costs
-    market_type                       = null
+    root_block_device_name               = data.aws_ami.eks_worker.root_device_name # Root device name for workers. If non is provided, will assume default AMI was used.
+    root_kms_key_id                      = ""                                       # The KMS key to use when encrypting the root storage device
+    launch_template_version              = "$Latest"                                # The lastest version of the launch template to use in the autoscaling group
+    launch_template_placement_tenancy    = "default"                                # The placement tenancy for instances
+    launch_template_placement_group      = ""                                       # The name of the placement group into which to launch the instances, if any.
+    root_encrypted                       = ""                                       # Whether the volume should be encrypted or not
+    eni_delete                           = true                                     # Delete the Elastic Network Interface (ENI) on termination (if set to false you will have to manually delete before destroying)
+    cpu_credits                          = "standard"                               # T2/T3 unlimited mode, can be 'standard' or 'unlimited'. Used 'standard' mode as default to avoid paying higher costs
+    market_type                          = null
+    metadata_http_endpoint               = "enabled"  # The state of the metadata service: enabled, disabled.
+    metadata_http_tokens                 = "optional" # If session tokens are required: optional, required.
+    metadata_http_put_response_hop_limit = null       # The desired HTTP PUT response hop limit for instance metadata requests.
     # Settings for launch templates with mixed instances policy
     override_instance_types                  = ["m5.large", "m5a.large", "m5d.large", "m5ad.large"] # A list of override instance types for mixed instances policy
     on_demand_allocation_strategy            = null                                                 # Strategy to use when launching on-demand instances. Valid values: prioritized.
