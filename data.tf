@@ -47,11 +47,12 @@ data "template_file" "kubeconfig" {
   template = file("${path.module}/templates/kubeconfig.tpl")
 
   vars = {
-    kubeconfig_name           = local.kubeconfig_name
-    endpoint                  = aws_eks_cluster.this.endpoint
-    region                    = data.aws_region.current.name
-    cluster_auth_base64       = aws_eks_cluster.this.certificate_authority[0].data
-    aws_authenticator_command = var.kubeconfig_aws_authenticator_command
+    kubeconfig_name                         = local.kubeconfig_name
+    endpoint                                = aws_eks_cluster.this.endpoint
+    region                                  = data.aws_region.current.name
+    cluster_auth_base64                     = aws_eks_cluster.this.certificate_authority[0].data
+    aws_authenticator_kubeconfig_apiversion = var.kubeconfig_api_version
+    aws_authenticator_command               = var.kubeconfig_aws_authenticator_command
     aws_authenticator_command_args = length(var.kubeconfig_aws_authenticator_command_args) > 0 ? "        - ${join(
       "\n        - ",
       var.kubeconfig_aws_authenticator_command_args,
