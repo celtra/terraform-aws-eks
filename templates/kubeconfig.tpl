@@ -22,6 +22,7 @@ users:
     exec:
       apiVersion: ${aws_authenticator_kubeconfig_apiversion}
       command: ${aws_authenticator_command}
+      interactiveMode: IfAvailable
       args:
 ${aws_authenticator_command_args}
 ${aws_authenticator_additional_args}
